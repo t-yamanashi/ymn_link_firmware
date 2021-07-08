@@ -79,9 +79,9 @@ void getdata_all() {
   String data = "";
   for (int i = 0; i  <= 5; i++) {
     if( i > 0) {
-      data = data + ",";
+      data += ",";
     }
-    data =  data + String(analogRead(0), DEC);   
+    data += String(analogRead(0), DEC);   
   }
   Serial.print(data);
 }
