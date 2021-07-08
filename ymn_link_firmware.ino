@@ -81,7 +81,7 @@ void getdata_all() {
     if( i > 0) {
       data += ",";
     }
-    data += String(analogRead(0), DEC);   
+    data += String(analogRead(i), DEC);   
   }
   Serial.print(data);
 }
