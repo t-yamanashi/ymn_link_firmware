@@ -44,6 +44,8 @@ void exec(String cmd) {
     setdata(port, 0);
   } else if (sec == "a") {
     getdata(port);
+  } else if (sec == "z") {
+    getdata_all();
   }
 }
 
@@ -68,5 +70,18 @@ void getdata(int port) {
     return;
   } 
   String data = String(analogRead(port), DEC);
+  Serial.print(data);
+}
+/*
+ * Get analog data
+ */
+void getdata_all() {
+  String data = "";
+  for (int i = 0; i  <= 5; i++) {
+    if( i > 0) {
+      data = data + ",";
+    }
+    data =  data + String(analogRead(0), DEC);   
+  }
   Serial.print(data);
 }
