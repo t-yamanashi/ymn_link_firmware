@@ -35,8 +35,8 @@ void loop() {
  */
 void exec(String cmd) {
   String sec = cmd.substring(0, 1);
-  String portstr = cmd.substring(1);
-  int port = portstr.toInt();
+  String arg = cmd.substring(1);
+  int port = arg.toInt();
 
   if (sec == "1") {
     setdata(port, 1);
@@ -46,6 +46,10 @@ void exec(String cmd) {
     getdata(port);
   } else if (sec == "z") {
     getdata_all();
+  } else if (sec == "s") {
+    setdata_all(arg);
+  } else if (sec == "x") {
+    setgetdata_all(arg);
   }
 }
 
@@ -84,4 +88,40 @@ void getdata_all() {
     data += String(analogRead(i), DEC);   
   }
   Serial.print(data);
+}
+
+/*
+ * Set Data All
+ */
+void setdata_all(String arg) {
+  setdata_all_comm(arg);
+  Serial.print("OK");
+}
+
+/*
+ * Set Get Data All
+ */
+void setgetdata_all(String arg) {
+  setdata_all_comm(arg);
+  getdata_all();
+}
+
+/*
+ * Set Data All Comm
+ */
+void setdata_all_comm(String arg) {
+  if (arg.length() != 14) {
+    Serial.print("NG");
+    return;
+  }
+  int outval = 0;
+  String inval;
+  for (int i = 2; i  <= 14; i++) {
+    inval = arg.substring(i, i + 1);
+    outval = 0;
+    if (inval == "1") {
+     outval = 1; 
+    }
+    digitalWrite(i, outval);
+  }
 }
